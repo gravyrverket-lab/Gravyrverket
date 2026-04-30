@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gravyrverket – Personliga studentpresenter med gravyr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C49A3C;
+      --gold-light: #F0D98A;
+      --gold-pale: #FDF8EE;
+      --dark: #1C1C1E;
+      --mid: #3A3A3C;
+      --muted: #6C6C70;
+      --border: #E5E0D5;
+      --white: #FFFFFF;
+      --bg: #FAFAF8;
+      --section-alt: #F5F2EC;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-hover: 0 10px 40px rgba(0,0,0,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,250,248,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--mid);
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--white) !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: #b08a33 !important; transform: translateY(-1px); }
+
+    /* ─── HERO ────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1627738668643-3eb3cfc76b54?w=1400&q=80&fit=crop');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.38) saturate(0.8);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(28,28,30,0.85) 0%, rgba(28,28,30,0.55) 60%, transparent 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 32px;
+      width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(196,154,60,0.25);
+      border: 1px solid rgba(196,154,60,0.5);
+      color: var(--gold-light);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 40px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-badge::before { content: '🎓'; font-size: 1rem; }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      max-width: 680px;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold-light);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 540px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 15px 32px;
+      border-radius: 10px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: #b08a33;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(196,154,60,0.4);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 15px 28px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(4px);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+    .hero-stats {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: -40px auto 0;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .hero-stat {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .hero-stat strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .hero-stat span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ─── SECTIONS SHARED ─────────────────────── */
+    .section {
+      padding: 100px 24px;
+    }
+    .section-alt { background: var(--section-alt); }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    /* ─── PRODUCTS ────────────────────────────── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .product-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+    .product-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .product-img-placeholder {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #f0e8d0 0%, #e8d8b0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .product-body {
+      padding: 20px 22px 24px;
+    }
+    .product-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-pale);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .product-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--dark);
+      font-style: italic;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .product-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    .product-price {
+      margin-top: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 0.95rem;
+    }
+
+    /* ─── PRICING ─────────────────────────────── */
+    .pricing-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-top: 56px;
+    }
+    .price-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+    .price-row:first-child { border-top: 1px solid var(--border); }
+    .price-name {
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 0.97rem;
+    }
+    .price-amount {
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 1.05rem;
+      white-space: nowrap;
+      font-family: 'Playfair Display', serif;
+    }
+    .pricing-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .bundle-card {
+      background: var(--white);
+      border: 2px solid var(--gold-light);
+      border-radius: 14px;
+      padding: 24px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .bundle-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+    .bundle-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .bundle-title {
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+    .bundle-desc {
+      font-size: 0.87rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .pricing-note {
+      margin-top: 40px;
+      padding: 22px 26px;
+      background: var(--gold-pale);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+      font-size: 0.95rem;
+      color: var(--mid);
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ─── HOW IT WORKS ────────────────────────── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: calc(16.66% + 36px);
+      right: calc(16.66% + 36px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light));
+      z-index: 0;
+    }
+    .step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 4px 20px rgba(196,154,60,0.35);
+    }
+    .step-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .step-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight: 500;
+      max-width: 220px;
+      margin: 0 auto;
+    }
+
+    /* ─── CONTACT ─────────────────────────────── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+      align-items: start;
+      margin-top: 56px;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .contact-info p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gold-pale);
+      border: 1px solid var(--gold-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-detail-text {
+      font-size: 0.9rem;
+      color: var(--mid);
+      font-weight: 600;
+    }
+    .contact-detail-text a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .contact-form {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 40px 36px;
+      box-shadow: var(--shadow);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--mid);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: var(--bg);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(196,154,60,0.12);
+      background: var(--white);
+    }
+    .form-group textarea { min-height: 120px; }
+    .form-submit {
+      width: 100%;
+      padding: 15px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .form-note {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    #form-success {
+      display: none;
+      text-align: center;
+      padding: 24px;
+      color: #2d6a4f;
+      background: #d8f3dc;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+
+    /* ─── FOOTER ──────────────────────────────── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 40px 24px;
+    }
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    footer .footer-logo span { color: var(--gold); }
+    footer p {
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    footer a {
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 768px) {
+      .hero-stats { grid-template-columns: 1fr; margin-top: -20px; }
+      .pricing-layout { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; gap: 40px; }
+      .steps-grid::before { display: none; }
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links { display: none; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .contact-form { padding: 28px 20px; }
+    }
+    @media (max-width: 500px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── ANIMATIONS ──────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-badge { animation: fadeUp 0.6s ease both; }
+    .hero h1    { animation: fadeUp 0.6s 0.12s ease both; }
+    .hero p     { animation: fadeUp 0.6s 0.22s ease both; }
+    .hero-buttons { animation: fadeUp 0.6s 0.32s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">Gravyr<span>verket</span></a>
+    <ul class="nav-links">
+      <li><a href="#produkter">Produkter</a></li>
+      <li><a href="#priser">Priser</a></li>
+      <li><a href="#hur-det-fungerar">Hur det fungerar</a></li>
+      <li><a href="#kontakt" class="nav-cta">Beställ gravyr</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Studenten 2026</div>
+    <h1>Personliga studentpresenter med <em>gravyr som varar för alltid</em></h1>
+    <p>Vi graverar namn och hälsningar på glas, fickpluntor, kapsylöppnare och dina egna saker – perfekt till studenten 2026.</p>
+    <div class="hero-buttons">
+      <a href="#kontakt" class="btn-primary">✦ Beställ gravyr</a>
+      <a href="#produkter" class="btn-secondary">Se produkter →</a>
+    </div>
+  </div>
+</section>
+
+<!-- HERO STATS -->
+<div class="hero-stats">
+  <div class="hero-stat">
+    <strong>299 kr</strong>
+    <span>Från endast – på din egen produkt</span>
+  </div>
+  <div class="hero-stat">
+    <strong>✦ Unikt</strong>
+    <span>Varje gravyr är personligt anpassad</span>
+  </div>
+  <div class="hero-stat">
+    <strong>🎓 2026</strong>
+    <span>Redo inför studentfirandet</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section" id="produkter">
+  <div class="container">
+    <span class="section-label">Våra produkter</span>
+    <h2 class="section-title">Graverade presenter som betyder något</h2>
+    <p class="section-sub">Varje produkt graveras med den text du väljer – ett namn, en hälsning, ett datum. En present som aldrig glöms bort.</p>
+
+    <div class="products-grid">
+
+      <!-- Champagneglas -->
+      <div class="product-card">
+        <img
+          class="product-img"
+          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80&fit=crop&crop=center"
+          alt="Champagneglas med gravyr"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="product-img-placeholder" style="display:none;">🥂</div>
+        <div class="product-body">
+          <span class="product-tag">Champagneglas</span>
+          <p class="product-quote">"Grattis till studenten Erik – 2026"</p>
+          <p class="product-desc">Ett glas som alltid påminner om den stora dagen.</p>
+          <p class="product-price">399 kr/st</p>
+        </div>
+      </div>
+
+      <!-- Fickplunta -->
+      <div class="product-card">
+        <img
+          class="product-img"
+          src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&q=80&fit=crop&crop=center"
+          alt="Fickplunta med gravyr"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="product-img-placeholder" style="display:none;">🥃</div>
+        <div class="product-body">
+          <span class="product-tag">Fickplunta</span>
+          <p class="product-quote">"Stolt över dig, alltid – Mamma &amp; Pappa"</p>
+          <p class="product-desc">En personlig present med känsla.</p>
+          <p class="product-price">499 kr</p>
+        </div>
+      </div>
+
+      <!-- Kapsylöppnare -->
+      <div class="product-card">
+        <div class="product-img-placeholder" style="font-size:2.5rem;">🔑</div>
+        <div class="product-body">
+          <span class="product-tag">Kapsylöppnare</span>
+          <p class="product-quote">"Du klarade det!"</p>
+          <p class="product-desc">En liten sak som betyder mycket.</p>
+          <p class="product-price">349 kr</p>
+        </div>
+      </div>
+
+      <!-- Egen produkt -->
+      <div class="product-card" style="border: 2px dashed var(--gold-light); background: var(--gold-pale);">
+        <div class="product-img-placeholder" style="background: linear-gradient(135deg, #fdf0c4, #fce5a0);">✦</div>
+        <div class="product-body">
+          <span class="product-tag">Din produkt</span>
+          <p class="product-quote">"Vi graverar även på dina egna saker"</p>
+          <p class="product-desc">Har du redan en present? Vi gör den personlig med en gravyr.</p>
+          <p class="product-price">299 kr</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section section-alt" id="priser">
+  <div class="container">
+    <span class="section-label">Priser</span>
+    <h2 class="section-title">Enkla och transparenta priser</h2>
+    <p class="section-sub">Inga dolda avgifter. Det du ser är det du betalar.</p>
+
+    <div class="pricing-layout">
+      <div>
+        <div class="price-list">
+          <div class="price-row">
+            <span class="price-name">Gravyr på kundens egen produkt</span>
+            <span class="price-amount">299 kr</span>
+          </div>
+          <div class="price-row">
+            <span class="price-name">Kapsylöppnare med gravyr</span>
+            <span class="price-amount">349 kr</span>
+          </div>
+          <div class="price-row">
+            <span class="price-name">Champagneglas med gravyr</span>
+            <span class="price-amount">399 kr/st</span>
+          </div>
+          <div class="price-row">
+            <span class="price-name">Fickplunta med gravyr</span>
+            <span class="price-amount">499 kr</span>
+          </div>
+        </div>
+
+        <div class="pricing-note">
+          "En personlig studentpresent kostar inte mer än en vanlig present – men betyder betydligt mer."
+        </div>
+      </div>
+
+      <div class="pricing-right">
+        <div class="bundle-card">
+          <span class="bundle-icon">🎉</span>
+          <p class="bundle-title">Köp 5 – betala för 4</p>
+          <p class="bundle-desc">Perfekt till kompisgänget som vill ge varandra något personligt. Välj vilken produkt ni vill – rabatteras automatiskt.</p>
+        </div>
+        <div class="bundle-card">
+          <span class="bundle-icon">✦</span>
+          <p class="bundle-title">10% rabatt vid 3 eller fler produkter</p>
+          <p class="bundle-desc">Beställer du presenter till hela klassen? Vi ger dig 10% rabatt när du beställer tre eller fler produkter i samma order.</p>
+        </div>
+        <div class="bundle-card">
+          <span class="bundle-icon">💌</span>
+          <p class="bundle-title">Vill du ha ett offert?</p>
+          <p class="bundle-desc">Kontakta oss så hjälper vi dig att hitta den bästa lösningen för din beställning. Vi svarar snabbt!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="hur-det-fungerar">
+  <div class="container">
+    <span class="section-label">Så här enkelt är det</span>
+    <h2 class="section-title">Tre steg till en perfekt studentpresent</h2>
+    <p class="section-sub">Vi har gjort det så enkelt som möjligt. Du behöver inte boka möte eller besöka oss – allt sköts via e-post eller formuläret nedan.</p>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p class="step-title">Du väljer produkt eller skickar din egen</p>
+        <p class="step-desc">Välj ett champagneglas, fickplunta, kapsylöppnare – eller skicka in din egna present som du vill gravera.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p class="step-title">Du skickar texten du vill gravera</p>
+        <p class="step-desc">Skriv namn, hälsning eller datum som du vill ha på din gravyr. Vi hjälper dig med layout och typsnitt.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p class="step-title">Vi graverar och gör den redo inför studenten</p>
+        <p class="step-desc">Vi lasergraverar med precision och skickar tillbaka din produkt – redo att ge bort på studenten 2026.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section section-alt" id="kontakt">
+  <div class="container">
+    <span class="section-label">Kontakta oss</span>
+    <h2 class="section-title">Redo att beställa?</h2>
+    <p class="section-sub">Fyll i formuläret så hör vi av oss inom kort med en bekräftelse och mer information om din beställning.</p>
+
+    <div class="contact-layout">
+      <div class="contact-info">
+        <h3>Vi hjälper dig gärna</h3>
+        <p>Har du frågor om gravyrer, produkter eller leveranstider? Hör av dig så svarar vi så snabbt vi kan. Vi vill att din present ska bli precis som du tänkt dig.</p>
+
+        <div class="contact-detail">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-detail-text">
+            <a href="mailto:Gravyrverket@gmail.com">Gravyrverket@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon">⏱</div>
+          <div class="contact-detail-text">Vi svarar inom 24 timmar</div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon">🎓</div>
+          <div class="contact-detail-text">Redo för leverans inför studenten 2026</div>
+        </div>
+
+        <div style="margin-top: 32px; padding: 20px; background: var(--white); border-radius: 12px; border: 1px solid var(--border);">
+          <p style="font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-bottom: 4px;">Berätta gärna i formuläret:</p>
+          <ul style="font-size: 0.85rem; color: var(--mid); list-style: none; line-height: 2;">
+            <li>✦ Vilken produkt du vill ha</li>
+            <li>✦ Texten du vill gravera</li>
+            <li>✦ Antal produkter</li>
+            <li>✦ Önskat leveransdatum</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <form id="gravyr-form" action="https://formspree.io/f/xdayqqde" method="POST">
+          <div class="form-group">
+            <label for="name">Ditt namn</label>
+            <input type="text" id="name" name="name" placeholder="Anna Johansson" required />
+          </div>
+          <div class="form-group">
+            <label for="email">E-postadress</label>
+            <input type="email" id="email" name="email" placeholder="anna@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Text till gravyren &amp; meddelande</label>
+            <textarea id="message" name="message" placeholder='T.ex. "Grattis till studenten Emma – 2026" samt vilken produkt du önskar.' required></textarea>
+          </div>
+          <button type="submit" class="btn-primary form-submit">✦ Skicka beställning</button>
+          <p class="form-note">Vi hör av oss till dig inom 24 timmar.</p>
+          <div id="form-success">🎉 Tack för din beställning! Vi hör av oss snart.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Gravyr<span>verket</span></div>
+  <p>Personliga studentpresenter med lasergravyr – studenten 2026</p>
+  <p style="margin-top: 12px;">
+    <a href="mailto:Gravyrverket@gmail.com">Gravyrverket@gmail.com</a>
+  </p>
+  <p style="margin-top: 20px; font-size: 0.78rem;">© 2026 Gravyrverket. Alla rättigheter förbehålls.</p>
+</footer>
+
+<script>
+  // Formspree AJAX submission
+  const form = document.getElementById('gravyr-form');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Skickar...';
+    btn.disabled = true;
+    try {
+      const resp = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        form.reset();
+        document.getElementById('form-success').style.display = 'block';
+        btn.textContent = '✦ Skickad!';
+      } else {
+        btn.textContent = 'Försök igen';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Försök igen';
+      btn.disabled = false;
+    }
+  });
+
+  // Intersection Observer for subtle scroll reveals
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.product-card, .bundle-card, .step, .price-row, .hero-stat').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
