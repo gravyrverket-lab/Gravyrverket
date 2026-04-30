@@ -95,10 +95,10 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1627738668643-3eb3cfc76b54?w=1400&q=80&fit=crop');
+      background-image: url('champangeglas.png');
       background-size: cover;
-      background-position: center 30%;
-      filter: brightness(0.38) saturate(0.8);
+      background-position: center center;
+      filter: brightness(0.32) saturate(0.7);
     }
     .hero-overlay {
       position: absolute;
@@ -689,11 +689,10 @@
       <div class="product-card">
         <img
           class="product-img"
-         <img src="champagneglas.png">
-          alt="Champagneglas med gravyr"
-      
+          src="champangeglas.png"
+          alt="Champagneglas med gravyr till studenten"
+          style="object-position: center top;"
         />
-        <div class="product-img-placeholder" style="display:none;">🥂</div>
         <div class="product-body">
           <span class="product-tag">Champagneglas</span>
           <p class="product-quote">"Grattis till studenten Erik – 2026"</p>
@@ -706,11 +705,10 @@
       <div class="product-card">
         <img
           class="product-img"
-          <img src="fickplunta.png">
-          alt="Fickplunta med gravyr"
-          
+          src="fickplunta.png"
+          alt="Graverad fickplunta till studenten"
+          style="object-position: center center;"
         />
-        <div class="product-img-placeholder" style="display:none;">🥃</div>
         <div class="product-body">
           <span class="product-tag">Fickplunta</span>
           <p class="product-quote">"Stolt över dig, alltid – Mamma &amp; Pappa"</p>
@@ -721,11 +719,13 @@
 
       <!-- Kapsylöppnare -->
       <div class="product-card">
-       <img
+        <img
           class="product-img"
-          <img src="kapsyl.png">
-          alt="Kapsylöppnare med gravyr"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          src="kapsyl.png"
+          alt="Graverad kapsylöppnare till studenten"
+          style="object-position: center center;"
+        />
+        <div class="product-body">
           <span class="product-tag">Kapsylöppnare</span>
           <p class="product-quote">"Du klarade det!"</p>
           <p class="product-desc">En liten sak som betyder mycket.</p>
@@ -733,14 +733,19 @@
         </div>
       </div>
 
-      <!-- Egen produkt -->
-      <div class="product-card" style="border: 2px dashed var(--gold-light); background: var(--gold-pale);">
-        <div class="product-img-placeholder" style="background: linear-gradient(135deg, #fdf0c4, #fce5a0);">✦</div>
+      <!-- Shotglas -->
+      <div class="product-card">
+        <img
+          class="product-img"
+          src="shotglas.png"
+          alt="Graverat shotglas till studenten"
+          style="object-position: center center;"
+        />
         <div class="product-body">
-          <span class="product-tag">Din produkt</span>
-          <p class="product-quote">"Vi graverar även på dina egna saker"</p>
-          <p class="product-desc">Har du redan en present? Vi gör den personlig med en gravyr.</p>
-          <p class="product-price">299 kr</p>
+          <span class="product-tag">Shotglas</span>
+          <p class="product-quote">"Skål för framtiden!"</p>
+          <p class="product-desc">Ett graverat shotglas – en rolig och personlig studentpresent att minnas.</p>
+          <p class="product-price">249 kr/st</p>
         </div>
       </div>
 
